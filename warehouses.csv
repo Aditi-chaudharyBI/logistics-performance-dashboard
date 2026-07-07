@@ -1,0 +1,9 @@
+warehouse_id,warehouse_name,region,state
+1,Hyderabad Hub,South,Telangana
+2,Bengaluru Hub,South,Karnataka
+3,Chennai Hub,South,Tamil Nadu
+4,Mumbai Hub,West,Maharashtra
+5,Delhi Hub,North,Delhi
+6,Pune Hub,West,Maharashtra
+7,Kolkata Hub,East,West Bengal
+8,Ahmedabad Hub,West,Gujarat
