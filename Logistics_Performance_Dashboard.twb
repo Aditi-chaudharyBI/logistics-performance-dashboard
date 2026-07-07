@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 2023.1.0 (20231.23.0110.1044)                               -->
+<workbook original-version='18.1' source-build='2023.1.0 (20231.23.0110.1044)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.SchemaViewerObjectModel.true...true />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+  </preferences>
+  <datasources>
+    <datasource caption='tableau_source' inline='true' name='federated.tableausource' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='tableau_source.csv' name='textscan.tableausource'>
+            <connection class='textscan' directory='../data' filename='tableau_source.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...false>
+          <relation connection='textscan.tableausource' name='tableau_source.csv' table='[tableau_source#csv]' type='table' />
+        </_.fcp.ObjectModelEncapsulateLegacy.true...false>
+        <cols>
+          <map key='[actual_transit_days]' value='[tableau_source.csv].[actual_transit_days]' />
+          <map key='[customer_id]' value='[tableau_source.csv].[customer_id]' />
+          <map key='[customer_name]' value='[tableau_source.csv].[customer_name]' />
+          <map key='[customer_region]' value='[tableau_source.csv].[customer_region]' />
+          <map key='[customer_segment]' value='[tableau_source.csv].[customer_segment]' />
+          <map key='[delivery_date]' value='[tableau_source.csv].[delivery_date]' />
+          <map key='[delivery_status]' value='[tableau_source.csv].[delivery_status]' />
+          <map key='[freight_revenue_inr]' value='[tableau_source.csv].[freight_revenue_inr]' />
+          <map key='[on_time_flag]' value='[tableau_source.csv].[on_time_flag]' />
+          <map key='[operational_cost_inr]' value='[tableau_source.csv].[operational_cost_inr]' />
+          <map key='[planned_transit_days]' value='[tableau_source.csv].[planned_transit_days]' />
+          <map key='[profit_inr]' value='[tableau_source.csv].[profit_inr]' />
+          <map key='[profit_margin_pct]' value='[tableau_source.csv].[profit_margin_pct]' />
+          <map key='[shipment_date]' value='[tableau_source.csv].[shipment_date]' />
+          <map key='[shipment_id]' value='[tableau_source.csv].[shipment_id]' />
+          <map key='[shipment_value_inr]' value='[tableau_source.csv].[shipment_value_inr]' />
+          <map key='[state]' value='[tableau_source.csv].[state]' />
+          <map key='[warehouse_id]' value='[tableau_source.csv].[warehouse_id]' />
+          <map key='[warehouse_name]' value='[tableau_source.csv].[warehouse_name]' />
+          <map key='[warehouse_region]' value='[tableau_source.csv].[warehouse_region]' />
+        </cols>
+      </connection>
+
+      <!-- Column metadata: roles, default aggregations, captions -->
+      <column caption='Shipment ID' datatype='integer' name='[shipment_id]' role='dimension' type='ordinal' />
+      <column caption='Shipment Date' datatype='date' name='[shipment_date]' role='dimension' type='ordinal' />
+      <column caption='Delivery Date' datatype='date' name='[delivery_date]' role='dimension' type='ordinal' />
+      <column caption='Warehouse' datatype='string' name='[warehouse_name]' role='dimension' type='nominal' />
+      <column caption='Warehouse Region' datatype='string' name='[warehouse_region]' role='dimension' type='nominal' />
+      <column caption='State' datatype='string' name='[state]' role='dimension' type='nominal' />
+      <column caption='Customer Name' datatype='string' name='[customer_name]' role='dimension' type='nominal' />
+      <column caption='Customer Segment' datatype='string' name='[customer_segment]' role='dimension' type='nominal' />
+      <column caption='Customer Region' datatype='string' name='[customer_region]' role='dimension' type='nominal' />
+      <column caption='Delivery Status' datatype='string' name='[delivery_status]' role='dimension' type='nominal' />
+      <column caption='Planned Transit Days' datatype='real' default-aggregation='Avg' name='[planned_transit_days]' role='measure' type='quantitative' />
+      <column caption='Actual Transit Days' datatype='real' default-aggregation='Avg' name='[actual_transit_days]' role='measure' type='quantitative' />
+      <column caption='Shipment Value (INR)' datatype='real' default-aggregation='Sum' name='[shipment_value_inr]' role='measure' type='quantitative' />
+      <column caption='Freight Revenue (INR)' datatype='real' default-aggregation='Sum' name='[freight_revenue_inr]' role='measure' type='quantitative' />
+      <column caption='Operational Cost (INR)' datatype='real' default-aggregation='Sum' name='[operational_cost_inr]' role='measure' type='quantitative' />
+      <column caption='Profit (INR)' datatype='real' default-aggregation='Sum' name='[profit_inr]' role='measure' type='quantitative' />
+      <column caption='Profit Margin %' datatype='real' default-aggregation='Avg' name='[profit_margin_pct]' role='measure' type='quantitative' />
+      <column caption='On Time Flag' datatype='integer' default-aggregation='Avg' name='[on_time_flag]' role='measure' type='quantitative' />
+
+      <!-- Calculated fields -->
+      <column caption='On-Time Delivery Rate' datatype='real' default-aggregation='Sum' name='[Calculation.OnTimeRate]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='AVG([on_time_flag])' />
+      </column>
+      <column caption='Blended Profit Margin %' datatype='real' default-aggregation='Sum' name='[Calculation.BlendedMargin]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([profit_inr]) / SUM([freight_revenue_inr])' />
+      </column>
+      <column caption='Is Delayed' datatype='integer' default-aggregation='Sum' name='[Calculation.IsDelayed]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IIF([delivery_status] = &quot;Delayed&quot;, 1, 0)' />
+      </column>
+
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.5' dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.5' show-structure='true' />
+    </datasource>
+  </datasources>
+
+  <worksheets>
+
+    <!-- Worksheet 1: Monthly Revenue & Profit Trend -->
+    <worksheet name='Monthly Revenue &amp; Profit Trend'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tableau_source' name='federated.tableausource' />
+          </datasources>
+          <datasource-dependencies datasource='federated.tableausource'>
+            <column caption='Shipment Date' datatype='date' name='[shipment_date]' role='dimension' type='ordinal' />
+            <column caption='Freight Revenue (INR)' datatype='real' default-aggregation='Sum' name='[freight_revenue_inr]' role='measure' type='quantitative' />
+            <column caption='Profit (INR)' datatype='real' default-aggregation='Sum' name='[profit_inr]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[:Measure Names]' type='palette' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+            <encodings>
+              <color column='[federated.tableausource].[:Measure Names]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.tableausource].[Multiple Values]</rows>
+        <cols>[federated.tableausource].[mn:shipment_date:ok]</cols>
+      </table>
+    </worksheet>
+
+    <!-- Worksheet 2: On-Time % by Warehouse -->
+    <worksheet name='On-Time % by Warehouse'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tableau_source' name='federated.tableausource' />
+          </datasources>
+          <datasource-dependencies datasource='federated.tableausource'>
+            <column caption='Warehouse' datatype='string' name='[warehouse_name]' role='dimension' type='nominal' />
+            <column caption='On-Time Delivery Rate' datatype='real' default-aggregation='Sum' name='[Calculation.OnTimeRate]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='AVG([on_time_flag])' />
+            </column>
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.tableausource].[warehouse_name]</rows>
+        <cols>[federated.tableausource].[Calculation.OnTimeRate]</cols>
+      </table>
+    </worksheet>
+
+    <!-- Worksheet 3: Delivery Status Breakdown -->
+    <worksheet name='Delivery Status Breakdown'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tableau_source' name='federated.tableausource' />
+          </datasources>
+          <datasource-dependencies datasource='federated.tableausource'>
+            <column caption='Delivery Status' datatype='string' name='[delivery_status]' role='dimension' type='nominal' />
+            <column caption='Shipment ID' datatype='integer' name='[shipment_id]' role='dimension' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.tableausource].[delivery_status]</rows>
+        <cols>[federated.tableausource].[cnt:shipment_id:qk]</cols>
+      </table>
+    </worksheet>
+
+    <!-- Worksheet 4: Profit Margin % by Segment -->
+    <worksheet name='Profit Margin by Segment'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tableau_source' name='federated.tableausource' />
+          </datasources>
+          <datasource-dependencies datasource='federated.tableausource'>
+            <column caption='Customer Segment' datatype='string' name='[customer_segment]' role='dimension' type='nominal' />
+            <column caption='Blended Profit Margin %' datatype='real' default-aggregation='Sum' name='[Calculation.BlendedMargin]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([profit_inr]) / SUM([freight_revenue_inr])' />
+            </column>
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[federated.tableausource].[customer_segment]</rows>
+        <cols>[federated.tableausource].[Calculation.BlendedMargin]</cols>
+      </table>
+    </worksheet>
+
+  </worksheets>
+
+  <dashboards>
+    <dashboard name='Logistics Performance Dashboard'>
+      <style />
+      <size maxheight='800' maxwidth='1200' minheight='800' minwidth='1200' />
+      <zones>
+        <zone h='100000' id='1' type='layout-basic' w='100000' x='0' y='0'>
+          <zone h='50000' id='2' name='Monthly Revenue &amp; Profit Trend' w='60000' x='0' y='0' />
+          <zone h='50000' id='3' name='On-Time % by Warehouse' w='40000' x='60000' y='0' />
+          <zone h='50000' id='4' name='Delivery Status Breakdown' w='50000' x='0' y='50000' />
+          <zone h='50000' id='5' name='Profit Margin by Segment' w='50000' x='50000' y='50000' />
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+
+  <windows saved-dpi-scale-factor='1.0'>
+    <window class='worksheet' name='Monthly Revenue &amp; Profit Trend'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='dashboard' maximized='true' name='Logistics Performance Dashboard'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='legends' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+  </windows>
+</workbook>
